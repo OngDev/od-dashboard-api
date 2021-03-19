@@ -26,11 +26,14 @@ public class YoutubeService {
     }
 
     public Object testGetYoutubeApi(){
-        
-        String requestUrl = this.applicationConfig.getRequestUrl() + "channel";
+
+        String requestUrl = this.applicationConfig.getRequestUrl() + "channels";
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(requestUrl)
             .queryParam("part", "contentDetails,snippet,statistics")
-                .queryParam("key", applicationConfig.getSecretApi());
+                .queryParam("key", applicationConfig.getSecretApi())
+                .queryParam("id", applicationConfig.getChannel());
+
+        logger.info("Uri: {}", builder.toUriString());
         return restTemplate.getForEntity(
                 builder.toUriString(),Object.class );
 
