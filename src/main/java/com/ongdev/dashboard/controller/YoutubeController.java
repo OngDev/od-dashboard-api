@@ -18,12 +18,12 @@ public class YoutubeController {
     YoutubeService youtubeService;
 
     @GetMapping("statistic")
-    public YoutubeStatistic getYoutubeStatistic(){
+    public YoutubeStatistic getYoutubeStatistic() {
         logger.info("Getting Youtube statistic...");
         YoutubeStatistic res = null;
         try {
             res = youtubeService.getChannelStatistic();
-        }catch (Exception e){
+        } catch (Exception e) {
             logger.error("Error when getting YoutubeStatistic ", e);
         }
         return res;
