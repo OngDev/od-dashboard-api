@@ -9,6 +9,6 @@ spring:
 app:
   rest:
     youtube:
-      secret-api: AIzaSyAC4SCNAUphENAyZZllQaSp1V6tJ54V2A4
-      channel: UCA2tFk2NdzOzKpSJdf24cAg
-      request-url: https://youtube.googleapis.com/youtube/v3/
+      secret-api: ${API_KEY}
+      channel: ${CHANNEL_ID}
+      request-url: ${YOUTUBE_API_URL}
