@@ -1,43 +1,9 @@
 package com.ongdev.dashboard.services;
 
-import com.ongdev.dashboard.configuration.ApplicationConfig;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpMethod;
-import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
-import org.springframework.web.util.UriComponentsBuilder;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.ongdev.dashboard.models.YoutubeStatistic;
 
-import javax.annotation.PostConstruct;
+public interface YoutubeService {
 
-@Service
-public class YoutubeService {
-    private final Logger logger = LoggerFactory.getLogger(YoutubeService.class);
-    @Autowired
-    RestTemplate restTemplate;
-    @Autowired
-    ApplicationConfig applicationConfig;
-
-    @PostConstruct
-    public void initialize(){
-        logger.info("initialize service with config: {}", applicationConfig);
-    }
-
-    public Object testGetYoutubeApi(){
-
-        String requestUrl = this.applicationConfig.getRequestUrl() + "channels";
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(requestUrl)
-            .queryParam("part", "contentDetails,snippet,statistics")
-                .queryParam("key", applicationConfig.getSecretApi())
-                .queryParam("id", applicationConfig.getChannel());
-
-        logger.info("Uri: {}", builder.toUriString());
-        return restTemplate.getForEntity(
-                builder.toUriString(),Object.class );
-
-    }
-
-
+    YoutubeStatistic getChannelStatistic() throws JsonProcessingException;
 }
