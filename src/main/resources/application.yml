@@ -1,4 +1,36 @@
 spring:
+  profiles:
+    active:
+      - ${ACTIVE_PROFILE}
+app:
+  rest:
+    youtube:
+      secret-api: ${API_KEY}
+      channel: ${CHANNEL_ID}
+      request-url: ${YOUTUBE_API_URL}
+---
+# PROD profile properties
+spring:
+  profiles: prod
+
+  datasource:
+    platform: postgres
+    url: ${DATABASE_URL}
+  jpa:
+    database: POSTGRESQL
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true
+    show-sql: true
+---
+# dev H2 profile properties
+spring:
+  profiles: dev-h2
   datasource:
     driverClassName: org.h2.Driver
     password: ''
@@ -6,9 +38,4 @@ spring:
     username: sa
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
-app:
-  rest:
-    youtube:
-      secret-api: ${API_KEY}
-      channel: ${CHANNEL_ID}
-      request-url: ${YOUTUBE_API_URL}
+    show-sql: true
